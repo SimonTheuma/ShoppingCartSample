@@ -3,9 +3,28 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample", "ShoppingCartSample\ShoppingCartSample.csproj", "{0CE8D191-DAB5-44EC-9E88-8745EE5FD866}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Web", "ShoppingCartSample.Web\ShoppingCartSample.Web.csproj", "{0CE8D191-DAB5-44EC-9E88-8745EE5FD866}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Tests", "ShoppingCartSample.Tests\ShoppingCartSample.Tests.csproj", "{FE046ACD-B198-4434-A649-7734A1E3FD17}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Web.Tests", "ShoppingCartSample.Tests\ShoppingCartSample.Web.Tests.csproj", "{FE046ACD-B198-4434-A649-7734A1E3FD17}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{1272A5C7-DDAC-4E3A-9125-4ABF56BE97FF}"
+	ProjectSection(SolutionItems) = preProject
+		Readme.md = Readme.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D59845A-612F-49AF-859C-D1E3C01115AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Domain", "ShoppingCartSample.Domain\ShoppingCartSample.Domain.csproj", "{59040962-9A96-4594-AF82-3B205DD25305}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Data", "ShoppingCartSample.Data\ShoppingCartSample.Data.csproj", "{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Services", "ShoppingCartSample.Logic\ShoppingCartSample.Services.csproj", "{E09B1702-D54B-4024-B0A7-3E3433846E20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Authentication", "ShoppingCartSample.Authentication\ShoppingCartSample.Authentication.csproj", "{05C90E28-F6E4-4E92-B260-C7B67B139A72}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Services.Tests", "ShoppingCartSample.Services.Tests\ShoppingCartSample.Services.Tests.csproj", "{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShoppingCartSample.Data.Tests", "ShoppingCartSample.Data.Tests\ShoppingCartSample.Data.Tests.csproj", "{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +40,37 @@ Global
 		{FE046ACD-B198-4434-A649-7734A1E3FD17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE046ACD-B198-4434-A649-7734A1E3FD17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE046ACD-B198-4434-A649-7734A1E3FD17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59040962-9A96-4594-AF82-3B205DD25305}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59040962-9A96-4594-AF82-3B205DD25305}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59040962-9A96-4594-AF82-3B205DD25305}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59040962-9A96-4594-AF82-3B205DD25305}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E09B1702-D54B-4024-B0A7-3E3433846E20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E09B1702-D54B-4024-B0A7-3E3433846E20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E09B1702-D54B-4024-B0A7-3E3433846E20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E09B1702-D54B-4024-B0A7-3E3433846E20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{05C90E28-F6E4-4E92-B260-C7B67B139A72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{05C90E28-F6E4-4E92-B260-C7B67B139A72}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{05C90E28-F6E4-4E92-B260-C7B67B139A72}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{05C90E28-F6E4-4E92-B260-C7B67B139A72}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FE046ACD-B198-4434-A649-7734A1E3FD17} = {4D59845A-612F-49AF-859C-D1E3C01115AF}
+		{AFA5B110-3DE0-4016-8A60-7C247F4FA0B7} = {4D59845A-612F-49AF-859C-D1E3C01115AF}
+		{81A28665-0D4F-4F60-9DF2-5B4E7CBB6D8D} = {4D59845A-612F-49AF-859C-D1E3C01115AF}
 	EndGlobalSection
 EndGlobal
