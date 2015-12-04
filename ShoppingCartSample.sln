@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Readme", "Readme", "{1272A5C7-DDAC-4E3A-9125-4ABF56BE97FF}"
 	ProjectSection(SolutionItems) = preProject
 		Readme.md = Readme.md
+		Rough_Readme.md = Rough_Readme.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4D59845A-612F-49AF-859C-D1E3C01115AF}"
