@@ -3,7 +3,7 @@ namespace ShoppingCartSample.Data.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class ShoppingCartDataSchema : DbMigration
+    public partial class ShoppingCartData : DbMigration
     {
         public override void Up()
         {
@@ -25,14 +25,15 @@ namespace ShoppingCartSample.Data.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         UserID = c.String(),
+                        CartID = c.Int(nullable: false),
                         ProductID = c.Int(nullable: false),
+                        ProductName = c.String(),
                         UnitPrice = c.Decimal(nullable: false, precision: 18, scale: 2),
                         Quantity = c.Int(nullable: false),
-                        Cart_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
-                .ForeignKey("dbo.Carts", t => t.Cart_ID)
-                .Index(t => t.Cart_ID);
+                .ForeignKey("dbo.Carts", t => t.CartID, cascadeDelete: true)
+                .Index(t => t.CartID);
             
             CreateTable(
                 "dbo.Currencies",
@@ -40,6 +41,7 @@ namespace ShoppingCartSample.Data.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Code = c.String(),
+                        Symbol = c.String(),
                         IsDefault = c.Boolean(nullable: false),
                     })
                 .PrimaryKey(t => t.ID);
@@ -73,8 +75,8 @@ namespace ShoppingCartSample.Data.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.Orders", "Cart_ID", "dbo.Carts");
-            DropIndex("dbo.Orders", new[] { "Cart_ID" });
+            DropForeignKey("dbo.Orders", "CartID", "dbo.Carts");
+            DropIndex("dbo.Orders", new[] { "CartID" });
             DropTable("dbo.UserActionLogs");
             DropTable("dbo.Products");
             DropTable("dbo.Currencies");

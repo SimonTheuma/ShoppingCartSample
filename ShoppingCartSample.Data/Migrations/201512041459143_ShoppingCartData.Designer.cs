@@ -7,13 +7,13 @@ namespace ShoppingCartSample.Data.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class ShoppingCartDataSchema3 : IMigrationMetadata
+    public sealed partial class ShoppingCartData : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(ShoppingCartDataSchema3));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ShoppingCartData));
         
         string IMigrationMetadata.Id
         {
-            get { return "201512040615060_ShoppingCartDataSchema3"; }
+            get { return "201512041459143_ShoppingCartData"; }
         }
         
         string IMigrationMetadata.Source

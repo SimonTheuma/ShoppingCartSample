@@ -68,21 +68,9 @@
   <ItemGroup>
     <Compile Include="Contexts\ShoppingCartContext.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
-    <Compile Include="Migrations\201512031529479_ShoppingCartDataSchema.cs" />
-    <Compile Include="Migrations\201512031529479_ShoppingCartDataSchema.Designer.cs">
-      <DependentUpon>201512031529479_ShoppingCartDataSchema.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512031941321_ShoppCartDataSchema2.cs" />
-    <Compile Include="Migrations\201512031941321_ShoppCartDataSchema2.Designer.cs">
-      <DependentUpon>201512031941321_ShoppCartDataSchema2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512040615060_ShoppingCartDataSchema3.cs" />
-    <Compile Include="Migrations\201512040615060_ShoppingCartDataSchema3.Designer.cs">
-      <DependentUpon>201512040615060_ShoppingCartDataSchema3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201512041240484_ShoppingCartFinal.cs" />
-    <Compile Include="Migrations\201512041240484_ShoppingCartFinal.Designer.cs">
-      <DependentUpon>201512041240484_ShoppingCartFinal.cs</DependentUpon>
+    <Compile Include="Migrations\201512041459143_ShoppingCartData.cs" />
+    <Compile Include="Migrations\201512041459143_ShoppingCartData.Designer.cs">
+      <DependentUpon>201512041459143_ShoppingCartData.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -110,17 +98,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201512031529479_ShoppingCartDataSchema.resx">
-      <DependentUpon>201512031529479_ShoppingCartDataSchema.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512031941321_ShoppCartDataSchema2.resx">
-      <DependentUpon>201512031941321_ShoppCartDataSchema2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512040615060_ShoppingCartDataSchema3.resx">
-      <DependentUpon>201512040615060_ShoppingCartDataSchema3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201512041240484_ShoppingCartFinal.resx">
-      <DependentUpon>201512041240484_ShoppingCartFinal.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201512041459143_ShoppingCartData.resx">
+      <DependentUpon>201512041459143_ShoppingCartData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
