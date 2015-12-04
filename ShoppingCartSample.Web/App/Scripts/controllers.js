@@ -228,9 +228,15 @@ app.controller('NotificationCtrl', ['$scope', 'Notifications', function ($scope,
     $scope.closeAlert = Notifications.closeAlert;
 }]);
 
-app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'Notifications', 'Cart', function ($scope, $uibModal, $location, Account, Notifications, Cart) {
+app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'AccountSettings', 'Notifications', 'Cart', function ($scope, $uibModal, $location, Account, AccountSettings, Notifications, Cart) {
+
+    if (userId) {
+        AccountSettings.setUserId(userId);
+        $scope.userId = userId;
+    }
 
     if (account) {
+        AccountSettings.setAccount(account);
         $scope.account = account;
     }
 
@@ -239,7 +245,7 @@ app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'N
 
     $scope.register = function () {
 
-        var currentUserId = $scope.userId;
+        AccountSettings.setUserId($scope.userId);
         var registerForm = $scope.registerForm;
 
         Account.register(
@@ -268,7 +274,7 @@ app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'N
 
     $scope.login = function () {
 
-        var currentUserId = $scope.userId;
+        AccountSettings.setUserId($scope.userId);
         var loginForm = $scope.loginForm;
         //is temporary
 
@@ -296,10 +302,7 @@ app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'N
                                 animation: true,
                                 templateUrl: 'transferCartModal.html',
                                 controller: 'TransferModalCtrl',
-                                size: 'sm',
-                                resolve: {
-                                    oldId: function () { return currentUserId; }
-                                }
+                                size: 'sm'                                
                             });
                         }
                 }
@@ -319,13 +322,13 @@ app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'N
 }]);
 
 app.controller('TransferModalCtrl', [
-    '$scope', '$uibModalInstance', 'Notifications', 'Cart', function ($scope, $uibModalInstance, Notifications, Cart) {
-        var sourceUserId = $scope.oldId;
+    '$scope', '$uibModalInstance', 'Notifications', 'Cart', 'AccountSettings', function ($scope, $uibModalInstance, Notifications, Cart, AccountSettings) {
+        var sourceUserId = AccountSettings.getUserId();
 
         $scope.transferCart = function () {
             Cart.transfer({ sourceUserId: sourceUserId },
                 function (data) {
-                    $scope.$parent.isTemporary = false;
+                    AccountSettings.setIsTemporary(false);
                 },
                 function (error) {
                     //what else to do in case there's an error transferring the cart?

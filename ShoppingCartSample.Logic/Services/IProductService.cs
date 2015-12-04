@@ -9,7 +9,7 @@ namespace ShoppingCartSample.Logic.Services
 {
     public interface IProductService
     {
-        bool IsInStock(int productId, int quantity);
+        bool IsStockAvailable(int productId, int quantity);
 
         IEnumerable<Product> GetAll();
 

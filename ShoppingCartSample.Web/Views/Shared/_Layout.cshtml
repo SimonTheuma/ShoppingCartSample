@@ -57,7 +57,7 @@
             <div class="modal-footer">
                 <button class="btn btn-warning" type="button" ng-click="transferCart()">Yes</button>
                 <button class="btn btn-primary" type="button" ng-click="cancel()">No</button>
-            </div>
+            </div>      
         </script>
     </div>
 
@@ -66,7 +66,10 @@
     @Scripts.Render("~/bundles/app")
     @Scripts.Render("~/bundles/misc")
 
-    <script type="text/javascript">var account, userId;</script>
+<script type="text/javascript">
+    var account,
+        userId = '@User.Identity.GetUserId()';
+</script>
 <!-- Inject account email if normal, logged-in account-->
     @{
         var isTemporaryUser = (bool)(ViewData["IsTemporaryUser"] ?? false);
@@ -75,8 +78,7 @@
     @if (Request.IsAuthenticated && !isTemporaryUser)
     {
         <script type="text/javascript">
-            account = '@User.Identity.GetUserName()';
-            userId = '@User.Identity.GetUserId()';
+            account = '@User.Identity.GetUserName()';            
         </script>
     }
 

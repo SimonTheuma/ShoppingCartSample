@@ -10,19 +10,17 @@ namespace ShoppingCartSample.Data.Repositories
 {
     public interface ICartRepository
     {
-        void ProcessCheckout(string userId);
-
-        Cart Create(string userId);
-
+        void Create(Cart cart);
         Cart GetByUserId(string userId);
-
-        Order AddOrder(string userId, int productId, int quantity);
-        void RemoveOrder(string userId, int orderId);
-        void UpdateOrder(string userId, int orderId, int newQuantity);
+        Order AddOrder(Cart cart, Product product, int quantity);
+        void RemoveOrder(Cart cart, Order order);
+        void UpdateOrder(Cart cart, Order order, int newQuantity);
         Order GetOrderById(int orderId);
-        void Clear(string userId);
-        void Transfer(string sourceUserId, string targetUserId, bool overwriteCart = false);
-
-        bool HasEmptyCart(string userId);
+        void Clear(Cart cart);
+        void Transfer(Cart sourceCart, string targetUserId);        
+        bool SomethingNotInStock(Cart cart);
+        void CheckOutCart(Cart cart);
+        bool UserHasEmptyCart(string userId);
+        bool UserHasCart(string userId, bool canBeEmpty = false);
     }
 }

@@ -124,7 +124,7 @@
         }
     })
 
-    .factory('Account', function ($resource) {
+    .factory('Account', function ($resource) {        
         return $resource('/account/:operation', {},
         {
             login: {
@@ -146,4 +146,19 @@
                 error: function (data) { return data; }
             }
         });
+    })
+
+    .factory('AccountSettings', function () {
+        var userId;
+        var account;
+        var isTemporary;
+
+        return {
+            getAccount: function () { return account; },
+            setAccount: function (value) { account = value; },
+            getUserId: function () { return userId; },
+            setUserId: function (value) { userId = value; },
+            getIsTemporary: function () { return isTemporary; },
+            setIsTemporary: function(value) { isTemporary = value; }
+        }
     });

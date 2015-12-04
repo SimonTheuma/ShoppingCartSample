@@ -12,6 +12,8 @@ namespace ShoppingCartSample.Data.Repositories
         bool IsStockAvailable(int productId, int quantity);
         IEnumerable<Product> GetAll();
         Product GetById(int productId);
+        void UpdateStockQuantity(Product product, int quantityPurchased);
         void UpdateStockQuantity(int productId, int quantityPurchased);
+        bool Exists(int productId);
     }
 }

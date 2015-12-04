@@ -37,6 +37,10 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>False</Private>
     </Reference>
+    <Reference Include="Moq, Version=4.2.1510.2205, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.2.1510.2205\lib\net40\Moq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -105,9 +109,17 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingCartSample.Data\ShoppingCartSample.Data.csproj">
+      <Project>{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}</Project>
+      <Name>ShoppingCartSample.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShoppingCartSample.Domain\ShoppingCartSample.Domain.csproj">
       <Project>{59040962-9A96-4594-AF82-3B205DD25305}</Project>
       <Name>ShoppingCartSample.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingCartSample.Logic\ShoppingCartSample.Services.csproj">
+      <Project>{E09B1702-D54B-4024-B0A7-3E3433846E20}</Project>
+      <Name>ShoppingCartSample.Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\ShoppingCartSample.Web\ShoppingCartSample.Web.csproj">
       <Project>{0CE8D191-DAB5-44EC-9E88-8745EE5FD866}</Project>

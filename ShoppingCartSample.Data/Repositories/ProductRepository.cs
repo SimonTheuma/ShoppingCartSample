@@ -13,15 +13,13 @@ namespace ShoppingCartSample.Data.Repositories
     {
         private readonly ShoppingCartContext _context = new ShoppingCartContext();
 
-        public bool IsStockAvailable(int productId, int quantity)
+        public bool Exists(int productId)
         {
-            ContinueIfProductExists(productId);
+            return _context.Products.Any(p => p.ID == productId);
+        }
 
-            if (quantity < 1)
-            {
-                throw new InvalidArgumentException("Invalid quantity amount specified.");
-            }
-
+        public bool IsStockAvailable(int productId, int quantity)
+        {          
             var isAvailable = _context.Products.Any(product => product.ID == productId && product.Quantity >= quantity);
             return isAvailable;
         }
@@ -33,45 +31,19 @@ namespace ShoppingCartSample.Data.Repositories
 
         public Product GetById(int productId)
         {            
-            var product = _context.Products.FirstOrDefault(p => p.ID == productId);
-
-            if (product == null)
-            {
-                throw new ProductNotFoundException();
-            }
-
-            return product;
+            return _context.Products.FirstOrDefault(p => p.ID == productId);            
         }
 
-        public void UpdateStockQuantity(int productId, int quantityPurchased)
+        public void UpdateStockQuantity(Product product, int quantityPurchased)
         {            
-            var product = _context.Products.FirstOrDefault(p => p.ID == productId);
-
-            if (product == null)
-            {
-                throw new ProductNotFoundException();
-            }
-
-            if (product.Quantity - quantityPurchased < 0)
-            {
-                throw new InvalidStockUpdateException("Not enough quantity to update stock to new value.");
-            }
-
             product.Quantity -= quantityPurchased;
             _context.SaveChanges();
         }
 
-        public void ContinueIfProductExists(int productId)
+        public void UpdateStockQuantity(int productId, int quantityPurchased)
         {
-            if (productId == 0)
-            {
-                throw new InvalidArgumentException("ProductId was empty.");
-            }
-
-            if (!(_context.Products.Any(p => p.ID == productId)))
-            {
-                throw new ProductNotFoundException();
-            }
+            var product = _context.Products.First(p => p.ID == productId);
+            UpdateStockQuantity(product, quantityPurchased);
         }
     }
 }

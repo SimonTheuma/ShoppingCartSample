@@ -48,10 +48,12 @@ namespace ShoppingCartSample.Controllers
             var userId = User.Identity.GetUserId();
             var wasAnonymous = _userService.IsTemporary(userId);
 
-            if (wasAnonymous)
+            if (!wasAnonymous)
             {
-                _authenticationService.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "loggedIn");
             }
+
+            _authenticationService.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
@@ -98,10 +100,12 @@ namespace ShoppingCartSample.Controllers
                 var oldUserId = User.Identity.GetUserId();
                 var wasAnonymous = _userService.IsTemporary(oldUserId);
 
-                if (wasAnonymous)
+                if (!wasAnonymous)
                 {
-                    _authenticationService.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden, "loggedIn");
                 }
+
+                _authenticationService.SignOut(DefaultAuthenticationTypes.ApplicationCookie);                
 
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await _userService.CreateAsync(user, model.Password);

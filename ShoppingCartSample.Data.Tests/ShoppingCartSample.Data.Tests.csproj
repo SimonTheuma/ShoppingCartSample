@@ -50,8 +50,20 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShoppingCartSample.Data\ShoppingCartSample.Data.csproj">
+      <Project>{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}</Project>
+      <Name>ShoppingCartSample.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShoppingCartSample.Domain\ShoppingCartSample.Domain.csproj">
+      <Project>{59040962-9A96-4594-AF82-3B205DD25305}</Project>
+      <Name>ShoppingCartSample.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Mocks\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

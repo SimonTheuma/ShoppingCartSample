@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShoppingCartSample.Controllers;
 using ShoppingCartSample.Domain.Exceptions;
 
 namespace ShoppingCartSample.Tests
@@ -16,6 +17,7 @@ namespace ShoppingCartSample.Tests
         [ExpectedException(typeof(ProductNotFoundException))]
         public void TestAddNullProductToCart()
         {            
+            
         }
 
         [TestMethod]
