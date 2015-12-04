@@ -91,6 +91,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\Startup.Auth.cs" />
+    <Compile Include="Migrations\201512031528234_ShoppingCartUserSchema.cs" />
+    <Compile Include="Migrations\201512031528234_ShoppingCartUserSchema.Designer.cs">
+      <DependentUpon>201512031528234_ShoppingCartUserSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
     <Compile Include="Models\ApplicationDbUser.cs" />
     <Compile Include="Models\ApplicationSignInManager.cs" />
@@ -111,6 +116,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512031528234_ShoppingCartUserSchema.resx">
+      <DependentUpon>201512031528234_ShoppingCartUserSchema.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

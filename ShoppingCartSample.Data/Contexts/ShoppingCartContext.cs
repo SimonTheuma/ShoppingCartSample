@@ -16,16 +16,10 @@ namespace ShoppingCartSample.Data.Contexts
         {
         }
 
-        public DbSet<Audit> Audits { get; set; }
+        public DbSet<UserActionLog> UserActionLogs { get; set; }
         public DbSet<Currency> Currencies { get; set; }
         public DbSet<Cart> Carts { get; set; }
-        public DbSet<Discount> Discounts { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Product> Products { get; set; }
-
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-        }
     }
 }

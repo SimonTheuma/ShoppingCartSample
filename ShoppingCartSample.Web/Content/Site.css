@@ -28,6 +28,29 @@ textarea {
     padding-top: 20px;
 }
 
+.product.tile {
+    width: 250px;
+    height: 250px;
+    margin: 5px;
+}
+
+.product.tile .name {        
+    margin-top: 190px;
+    margin-bottom: 0px;
+}
+
+.product.tile .price {
+    display: inline-block;    
+    text-align: right;
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.product.tile button {
+    float: right;
+    margin-top: -20px;
+}
+
 @media only screen and (max-width: 767px) {
     .nofloat {
         float: none;

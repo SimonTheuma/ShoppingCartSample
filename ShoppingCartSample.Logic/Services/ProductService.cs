@@ -3,12 +3,20 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ShoppingCartSample.Data.Repositories;
 using ShoppingCartSample.Domain.Models;
 
 namespace ShoppingCartSample.Logic.Services
 {
     public class ProductService : IProductService
     {
+        private readonly IProductRepository _productRepository;
+
+        public ProductService(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
+
         public bool IsInStock(int productId, int quantity)
         {
             throw new NotImplementedException();
@@ -17,18 +25,18 @@ namespace ShoppingCartSample.Logic.Services
         public IEnumerable<Product> GetAll()
         {
             //TODO: convert price if current currency is not base
-            throw new NotImplementedException();
+            return _productRepository.GetAll();
         }
 
         public Product GetById(int productId)
         {
             //TODO: convert price if current currency is not base
-            throw new NotImplementedException();
+            return _productRepository.GetById(productId);
         }
 
         public void UpdateStockQuantity(int productId, int quantityPurchased)
         {
-            throw new NotImplementedException();
+            _productRepository.UpdateStockQuantity(productId, quantityPurchased);
         }
 
         public void UpdateStockQuantity(IEnumerable<Tuple<int,int>> productList)

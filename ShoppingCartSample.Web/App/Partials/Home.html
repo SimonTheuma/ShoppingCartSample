@@ -1,0 +1,16 @@
+﻿<div ng-controller="HomeCtrl">
+    <h2>Featured Products</h2>
+    <div class="jumbotron container-fluid">
+        <div ng-repeat="product in products">
+            <div class="product tile col-lg-4" style="background-image: url('{{product.imageUri}}');">
+                <a ng-href="#/products/{{product.id}}">
+                    <h3 class="name">{{product.name}}</h3>
+                    <h5 class="price">{{product.price | currency : defaultCurrencySymbol}}</h5>                    
+                </a>
+                <button type="button" class="btn btn-primary" ng-click="addToCart(product.id)">
+                    <i class="fa fa-shopping-basket"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

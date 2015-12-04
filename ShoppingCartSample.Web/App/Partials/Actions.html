@@ -1,0 +1,22 @@
+﻿<div ng-controller="UserActionsCtrl">
+    <label for="actionFilter" class="control-label">Filter: </label>
+    <input ng-model="actionFilter" type="text" class="form-control" id="actionFilter"/>
+    <table>
+        <thead>
+        <tr>
+            <th>Time</th>
+            <th>User ID</th>
+            <th>User Action</th>
+            <th>Message</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="userAction in userActions | filter:actionFilter">
+            <td>{{userAction.timestamp | date : 'yyyy/MM/dd HH:mm:ss:sss'}}</td>
+            <td>{{userAction.userID}}</td>
+            <td>{{userAction.userActionId}}</td>
+            <td>{{userAction.message}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>

@@ -22,5 +22,10 @@ namespace ShoppingCartSample.Logic.Services
         {
             _auditRepository.LogUserAction(action);
         }
+
+        public IEnumerable<UserActionLog> GetAll()
+        {
+            return _auditRepository.GetAll();
+        }
     }
 }

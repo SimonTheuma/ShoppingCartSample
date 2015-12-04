@@ -10,6 +10,7 @@ using Microsoft.Practices.Unity;
 using Owin;
 using ShoppingCartSample.App_Start;
 using ShoppingCartSample.Authentication.Configuration;
+using ShoppingCartSample.Data.Contexts;
 
 [assembly: OwinStartup(typeof(ShoppingCartSample.Startup))]
 
@@ -19,7 +20,7 @@ namespace ShoppingCartSample
     {
         public void Configuration(IAppBuilder app)
         {
-            AuthorizationStartup.ConfigureAuth(app);
+            AuthorizationStartup.ConfigureAuth(app);           
 
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);

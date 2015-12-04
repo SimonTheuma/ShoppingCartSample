@@ -1,7 +1,19 @@
-﻿@section SPAViews {
-    @Html.Partial("_Home")
-}
-@section Scripts{
-    @Scripts.Render("~/bundles/knockout")
-    @Scripts.Render("~/bundles/app")
-}
+﻿<div class="container">
+    <div ng-view class="col-lg-10"></div>
+
+    <div ng-controller="SideCtrl" class="col-lg-2" ng-cloak>
+        <h3>Cart</h3>
+        <div ng-if="cart.orders.length < 1">
+            <h4>Cart is empty! Why not buy something?</h4>
+        </div>        
+        <div ng-if="cart.orders.length > 0">
+            <ul class="cart-items">
+                <li ng-repeat="order in cart.orders">
+                    {{order.productID}} - x{{order.quantity}}: {{order.subTotal | currency : defaultCurrencySymbol}} <button ng-click="removeFromCart(order.id)">[x]</button>
+                </li>
+            </ul>
+            <strong>Total: {{cart.total | currency : defaultCurrencySymbol}}</strong>
+            <button type="button" class="btn btn-success">Checkout</button>
+        </div>
+    </div>
+</div>

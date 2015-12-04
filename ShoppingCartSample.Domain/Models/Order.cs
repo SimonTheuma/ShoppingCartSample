@@ -9,8 +9,7 @@ namespace ShoppingCartSample.Domain.Models
     public class Order
     {
         public int ID { get; set; }
-        public string UserID { get; set; }
-        public int CartID { get; set; }
+        public string UserID { get; set; }        
         public int ProductID { get; set; }
         public decimal UnitPrice { get; set; }
         public int Quantity { get; set; }

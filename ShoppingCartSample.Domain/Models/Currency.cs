@@ -18,6 +18,8 @@ namespace ShoppingCartSample.Domain.Models
         /// <summary>
         /// 1-letter character symbol (eg. €)
         /// </summary>
-        public char Symbol { get; set; }
+        public string Symbol { get; set; }
+
+        public bool IsDefault { get; set; }
     }
 }

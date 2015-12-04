@@ -11,5 +11,7 @@ namespace ShoppingCartSample.Logic.Services
     public interface IAuditService
     {
         void LogUserAction(UserActionBase action);
+
+        IEnumerable<UserActionLog> GetAll();
     }
 }

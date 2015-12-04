@@ -12,15 +12,11 @@ namespace ShoppingCartSample.Data.Repositories
     {
         void ProcessCheckout(string userId);
 
-        void CreateCart(string userId);
-
-        IEnumerable<Discount> GetDiscounts(string userId, params string[] discounts);
-
-        IEnumerable<BaseCharge> GetExtraCharges(string userId, params string[] charges);
+        Cart Create(string userId);
 
         Cart GetByUserId(string userId);
 
-        int AddOrder(Order order);
+        Order AddOrder(string userId, int productId, int quantity);
         void RemoveOrder(string userId, int orderId);
         void UpdateOrder(string userId, int orderId, int newQuantity);
         Order GetOrderById(int orderId);

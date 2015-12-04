@@ -149,4 +149,9 @@ BaseCurrency - assumes that all prices are in that currency.
 
 User Experience:
 
+Temporary user is bound to session?
 Browsing => Pre-Checkout/Confirmation (displayed inventory of items + enter discount codes) => Checkout (success page)
+
+-----------------
+
+** TODO: Put audits in controller instead of in service.

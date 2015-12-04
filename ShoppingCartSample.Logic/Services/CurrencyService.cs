@@ -24,7 +24,12 @@ namespace ShoppingCartSample.Logic.Services
             return _currencyRepository.GetBaseCurrency();
         }
 
-        public char GetCurrencySymbol(string currencyCode)
+        public IEnumerable<Currency> GetAvailableCurrencies()
+        {
+            return _currencyRepository.GetAvailableCurrencies();
+        }
+
+        public string GetCurrencySymbol(string currencyCode)
         {
             return _currencyRepository.GetCurrencySymbol(currencyCode);
         }

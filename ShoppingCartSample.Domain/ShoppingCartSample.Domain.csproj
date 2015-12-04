@@ -48,8 +48,10 @@
     <Compile Include="Exceptions\CurrencyNotFoundException.cs" />
     <Compile Include="Exceptions\InvalidArgumentException.cs" />
     <Compile Include="Exceptions\InvalidStockUpdateException.cs" />
+    <Compile Include="Exceptions\OrderDoesNotBelongToUserException.cs" />
     <Compile Include="Exceptions\OrderNotFoundException.cs" />
     <Compile Include="Exceptions\ProductNotFoundException.cs" />
+    <Compile Include="Exceptions\ProductOutOfStockException.cs" />
     <Compile Include="Exceptions\UserAlreadyHasCartException.cs" />
     <Compile Include="Exceptions\UserHasNoCartException.cs" />
     <Compile Include="Exceptions\UserNotFoundException.cs" />
@@ -61,7 +63,7 @@
     <Compile Include="Models\Charges\Discount.cs" />
     <Compile Include="Models\Order.cs" />
     <Compile Include="Models\Product.cs" />
-    <Compile Include="Models\Audit.cs" />
+    <Compile Include="Models\UserActionLog.cs" />
     <Compile Include="Models\UserActions\UserActionBase.cs" />
     <Compile Include="Models\UserActions\UserCheckedOut.cs" />
     <Compile Include="Models\UserActions\UserClearedCart.cs" />

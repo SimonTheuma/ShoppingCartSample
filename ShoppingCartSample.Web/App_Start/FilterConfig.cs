@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using ShoppingCartSample.Attributes;
 
 namespace ShoppingCartSample
 {
@@ -8,6 +9,7 @@ namespace ShoppingCartSample
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new JsonNetFilterAttribute());
         }
     }
 }

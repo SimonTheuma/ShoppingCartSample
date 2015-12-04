@@ -68,6 +68,14 @@
   <ItemGroup>
     <Compile Include="Contexts\ShoppingCartContext.cs" />
     <Compile Include="Helpers\CurrencyHelper.cs" />
+    <Compile Include="Migrations\201512031529479_ShoppingCartDataSchema.cs" />
+    <Compile Include="Migrations\201512031529479_ShoppingCartDataSchema.Designer.cs">
+      <DependentUpon>201512031529479_ShoppingCartDataSchema.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201512031941321_ShoppCartDataSchema2.cs" />
+    <Compile Include="Migrations\201512031941321_ShoppCartDataSchema2.Designer.cs">
+      <DependentUpon>201512031941321_ShoppCartDataSchema2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\AuditRepository.cs" />
@@ -79,7 +87,6 @@
     <Compile Include="Repositories\IProductRepository.cs" />
     <Compile Include="Repositories\ProductRepository.cs" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\ShoppingCartSample.Authentication\ShoppingCartSample.Authentication.csproj">
       <Project>{05C90E28-F6E4-4E92-B260-C7B67B139A72}</Project>
@@ -93,6 +100,14 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201512031529479_ShoppingCartDataSchema.resx">
+      <DependentUpon>201512031529479_ShoppingCartDataSchema.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201512031941321_ShoppCartDataSchema2.resx">
+      <DependentUpon>201512031941321_ShoppCartDataSchema2.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

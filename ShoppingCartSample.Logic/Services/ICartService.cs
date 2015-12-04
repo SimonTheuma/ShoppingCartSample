@@ -10,14 +10,13 @@ namespace ShoppingCartSample.Logic.Services
 {
     public interface ICartService
     {
-        IEnumerable<Discount> GetDiscounts(string userId, params string[] discounts);
-        IEnumerable<BaseCharge> GetExtraCharges(string userId, params string[] charges);
+        Cart Create(string userId);
         void ProcessCheckout(string userId);
         Cart GetByUserId(string userId);
-        int AddOrder(Order order);
+        Order AddOrder(string userId, int productId, int quantity);
         void RemoveOrder(string userId, int orderId);
         void UpdateOrder(string userId, int orderId, int newQuantity);
         void Clear(string userId);
-        void Transfer(string sourceUserId, string targetUserId);
+        void Transfer(string sourceUserId, string targetUserId, bool overwriteCart = false);
     }
 }

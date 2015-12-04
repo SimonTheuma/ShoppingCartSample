@@ -22,6 +22,12 @@ namespace ShoppingCartSample.Logic.Services
             _cartRepository = cartRepository;
         }
 
+        public Cart Create(string userId)
+        {
+            var cart = _cartRepository.Create(userId);
+            return cart;
+        }
+
         public void ProcessCheckout(string userId)
         {
             _cartRepository.ProcessCheckout(userId);
@@ -40,7 +46,7 @@ namespace ShoppingCartSample.Logic.Services
 
         public void CreateCart(string userId)
         {
-            _cartRepository.CreateCart(userId);
+            _cartRepository.Create(userId);
         }
 
         public Cart GetByUserId(string userId)
@@ -54,12 +60,12 @@ namespace ShoppingCartSample.Logic.Services
         /// <param name="userId">The User's Id</param>
         /// <param name="order">The Order object.</param>
         /// <returns>The Order Id of the newly created order.</returns>
-        public int AddOrder(Order order)
+        public Order AddOrder(string userId, int productId, int quantity)
         {
-            int newOrderId = _cartRepository.AddOrder(order);
-            _auditService.LogUserAction(new UserAddedItemToCart(order.UserID, order.ProductID, order.Quantity));
+            Order newOrder = _cartRepository.AddOrder(userId, productId, quantity);
+            _auditService.LogUserAction(new UserAddedItemToCart(userId, productId, quantity));
 
-            return newOrderId;
+            return newOrder;
         }
 
         public void RemoveOrder(string userId, int orderId)
@@ -84,9 +90,9 @@ namespace ShoppingCartSample.Logic.Services
             _auditService.LogUserAction(new UserClearedCart(userId));
         }
 
-        public void Transfer(string sourceUserId, string targetUserId)
+        public void Transfer(string sourceUserId, string targetUserId, bool overwriteCart = false)
         {
-            _cartRepository.Transfer(sourceUserId, targetUserId);
+            _cartRepository.Transfer(sourceUserId, targetUserId, overwriteCart);
         }
     }
 }

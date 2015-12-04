@@ -7,7 +7,7 @@ using ShoppingCartSample.Domain.Enums;
 
 namespace ShoppingCartSample.Domain.Models
 {
-    public class Audit
+    public class UserActionLog
     {
         public int ID { get; set; }
         
@@ -17,9 +17,14 @@ namespace ShoppingCartSample.Domain.Models
 
         public string Message { get; set; }
 
-        public DateTime Timestamp { get; set; }        
+        public DateTime Timestamp { get; set; }
 
-        public Audit(UserActionBase baseAction)
+        public UserActionLog()
+        {
+            
+        }
+
+        public UserActionLog(UserActionBase baseAction)
         {
             UserID = baseAction.UserID;
             UserActionId = (int)baseAction.GetUserActionType();

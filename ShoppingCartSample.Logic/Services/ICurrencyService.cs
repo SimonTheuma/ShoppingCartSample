@@ -12,8 +12,10 @@ namespace ShoppingCartSample.Logic.Services
     {
         Currency GetBaseCurrency();
 
-        char GetCurrencySymbol(string currencyCode);
+        IEnumerable<Currency> GetAvailableCurrencies();
 
-        decimal GetNewPriceModifier(string sourceCurrencyCode, string targetCurrencyCode);
+        string GetCurrencySymbol(string currencyCode);
+
+        decimal GetNewPriceModifier(string sourceCurrencyCode, string targetCurrencyCode);        
     }
 }

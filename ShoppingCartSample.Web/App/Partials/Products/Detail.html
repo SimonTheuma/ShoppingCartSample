@@ -1,0 +1,23 @@
+﻿<div ng-controller="ProductDetailCtrl">
+    <a ng-href="#/">&laquo; Back to Product List</a>
+    <form ng-submit="addToCart(product.id)">
+        <h1>{{product.name}}</h1>
+
+        <div class="container">
+            <div class="col-lg-4">
+                <img ng-src="{{product.imageUri}}"/>
+            </div>
+            <div class="col-lg-8">
+                <p>{{product.description}}</p>
+            </div>
+        </div>
+
+        <label class="control-label">In Stock: {{product.quantity}}</label><br/>
+        <label for="quantity" class="control-label">Quantity:</label>
+        <input ng-model="customerQuantity" min="1" max="{{product.quantity}}" ng-required="true" type="number" class="form-control" placeholder="Enter quantity..." id="quantity"/>
+
+        <button type="submit" class="btn btn-primary">
+            Add to Cart <i class="fa fa-shopping-basket"></i>
+        </button>
+    </form>
+</div>
