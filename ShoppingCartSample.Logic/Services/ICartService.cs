@@ -18,5 +18,7 @@ namespace ShoppingCartSample.Logic.Services
         void UpdateOrder(string userId, int orderId, int newQuantity);
         void Clear(string userId);
         void Transfer(string sourceUserId, string targetUserId, bool overwriteCart = false);
+
+        bool HasEmptyCart(string userId);
     }
 }

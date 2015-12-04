@@ -20,7 +20,8 @@ namespace ShoppingCartSample
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-route.js",
-                "~/Scripts/angular-resource.js"
+                "~/Scripts/angular-resource.js",
+                "~/Scripts/angular-animate.js"
                 //"~/Scripts/angular.min.js",                
                 //"~/Scripts/angular-route.min.js
                 ));

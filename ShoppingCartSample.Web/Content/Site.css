@@ -51,6 +51,64 @@ textarea {
     margin-top: -20px;
 }
 
+ul.cart-items {
+    font-size: 12px;
+    padding-left: 0px;
+    list-style-type: none;
+}
+
+ul.cart-items > li {
+    margin-bottom: 6px;
+}
+
+ul.cart-items > li > .line-item {
+    width: 135px;
+    display: inline-block;    
+}
+
+ul.cart-items > li > button[type="button"] {
+    position: relative;    
+}
+
+.alerts {
+    position: fixed;
+    top: 60px;
+    left: 10px;    
+    z-index: 0;
+}
+
+.alerts .alert {
+    min-width: 250px;
+}
+
+.fade-enter,
+.fade-leave,
+.fade-move {
+  -webkit-transition: 1s linear all;
+  -moz-transition: 1s linear all;
+  -o-transition: 1s linear all;
+  transition: 1s linear all;
+  position:relative;
+}
+
+.fade-enter {
+  left:-10px;
+  opacity:0;
+}
+.fade-enter.fade-enter-active {
+  left:0;
+  opacity:1;
+}
+
+.fade-leave {
+  left:0;
+  opacity:1;
+}
+.fade-leave.fade-leave-active {
+  left:-10px;
+  opacity:0;
+}
+
 @media only screen and (max-width: 767px) {
     .nofloat {
         float: none;

@@ -7,6 +7,6 @@ namespace ShoppingCartSample.ViewModels
 {
     public class TransferCartViewModel
     {
-        public string TemporaryUserId { get; set; }
+        public string SourceUserId { get; set; }        
     }
 }

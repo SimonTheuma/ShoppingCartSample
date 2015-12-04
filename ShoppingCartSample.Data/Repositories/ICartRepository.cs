@@ -22,5 +22,7 @@ namespace ShoppingCartSample.Data.Repositories
         Order GetOrderById(int orderId);
         void Clear(string userId);
         void Transfer(string sourceUserId, string targetUserId, bool overwriteCart = false);
+
+        bool HasEmptyCart(string userId);
     }
 }

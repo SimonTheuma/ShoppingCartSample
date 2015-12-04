@@ -22,7 +22,10 @@ namespace ShoppingCartSample.Domain.Models
         /// </summary>
         public decimal Total
         {
-            get { return Orders.Sum(x => x.SubTotal); }
+            get
+            {                
+                return Orders.Sum(x => x.SubTotal);
+            }
         }
 
         public DateTime LastUpdatedUtc { get; set; }

@@ -29,7 +29,7 @@ namespace ShoppingCartSample.Controllers
         public ActionResult GetAvailableCurrencies()
         {
             var currencies = _currencyService.GetAvailableCurrencies();
-            return Json(currencies, JsonRequestBehavior.AllowGet);
+            return Json(currencies.OrderBy(x => x.Symbol), JsonRequestBehavior.AllowGet);
         }
         
         [HttpPost]
@@ -41,8 +41,7 @@ namespace ShoppingCartSample.Controllers
                 var newSymbol = _currencyService.GetCurrencySymbol(newCurrencyCode);
                 var newPriceModifier = _currencyService.GetNewPriceModifier(oldCurrencyCode, newCurrencyCode);
 
-                //TODO: update user's default currency?
-                
+                //TODO: update user's default currency?                
                 return Json(new {Symbol = newSymbol, PriceModifier = newPriceModifier}, JsonRequestBehavior.AllowGet);
             }
             catch (CurrencyNotFoundException)

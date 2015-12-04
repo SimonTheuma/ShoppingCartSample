@@ -1,3 +1,15 @@
 ﻿<div ng-controller="ConfirmCtrl">
-    
+    <h1>Confirm Order</h1>
+    <ul>
+        <li ng-repeat="order in cart.orders | orderBy:'subTotal'">
+            {{order.productName}} - x{{order.quantity}}: {{order.subTotal | currency : currencySymbol}}
+        </li>
+    </ul>
+    <div class="total" style="margin-bottom: 20px;">
+        <strong>Total: {{cart.total | currency: currencySymbol}}</strong>
+    </div>
+    <div ng-if="isTemporary">
+        <div class="alert alert-danger"><i class="fa fa-exclamation-triangle"></i><span> Please register an account or sign in prior to confirming checkout. Your cart will automatically be transferred, and it's super easy!</span></div>        
+    </div>
+    <button ng-click="goToCheckout()" ng-disabled="isTemporary" type="button" class="btn btn-success">Purchase!</button>
 </div>

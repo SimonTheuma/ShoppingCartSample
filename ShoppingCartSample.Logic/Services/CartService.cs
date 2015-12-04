@@ -94,5 +94,10 @@ namespace ShoppingCartSample.Logic.Services
         {
             _cartRepository.Transfer(sourceUserId, targetUserId, overwriteCart);
         }
+
+        public bool HasEmptyCart(string userId)
+        {
+            return _cartRepository.HasEmptyCart(userId);
+        }
     }
 }

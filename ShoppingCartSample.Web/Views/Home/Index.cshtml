@@ -1,19 +1,24 @@
 ﻿<div class="container">
     <div ng-view class="col-lg-10"></div>
 
-    <div ng-controller="SideCtrl" class="col-lg-2" ng-cloak>
+    <div ng-controller="SideCtrl" class="col-lg-2" ng-if="!confirming" ng-cloak>
         <h3>Cart</h3>
         <div ng-if="cart.orders.length < 1">
             <h4>Cart is empty! Why not buy something?</h4>
         </div>        
         <div ng-if="cart.orders.length > 0">
             <ul class="cart-items">
-                <li ng-repeat="order in cart.orders">
-                    {{order.productID}} - x{{order.quantity}}: {{order.subTotal | currency : defaultCurrencySymbol}} <button ng-click="removeFromCart(order.id)">[x]</button>
+                <li ng-repeat="order in cart.orders | orderBy:'subTotal'">
+                    <div class="line-item">
+                        {{order.productName}} - x{{order.quantity}}: {{order.subTotal | currency : currencySymbol}}
+                    </div>
+                    <button type="button" class="btn btn-xs btn-danger" ng-click="removeFromCart(order.id)">x</button>
                 </li>
             </ul>
-            <strong>Total: {{cart.total | currency : defaultCurrencySymbol}}</strong>
-            <button type="button" class="btn btn-success">Checkout</button>
+            <strong>Total: {{cart.total | currency : currencySymbol}}</strong>
+            <div class="btn-group">
+                <button ng-click="goToConfirmation()" type="button" class="btn btn-sm btn-success"><i class="fa fa-shopping-basket"></i> Checkout</button><button type="button" ng-click="clearCart()" class="btn btn-sm btn-warning">Clear</button>
+            </div>
         </div>
     </div>
 </div>

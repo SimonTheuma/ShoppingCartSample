@@ -1,10 +1,11 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8"/>
+    <meta charset="utf-8" />
     <title>ShoppingCartSample - By Simon Theuma</title>
-    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -23,27 +24,61 @@
                 <a href="#/" class="navbar-brand">Shopping Cart</a>
                 <ul class="nav navbar-nav">
                     <li><a ng-href="#/actions">User Actions</a></li>
-                </ul>                
+                </ul>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">                                        
-                </ul>
+                <ul class="nav navbar-nav"></ul>
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
     </div>
     <div class="container body-content">
         @RenderBody()
-        @RenderSection("SPAViews", required: false)
+        @*RenderSection("SPAViews", required: false)*@
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - ShoppingCartSample</p>
         </footer>
     </div>
 
+    <div ng-controller="NotificationCtrl" class="alerts" ng-if="alerts.length > 0">
+        <uib-alert data-ng-animate="'fade'" ng-repeat="alert in alerts" type="{{alert.type}}" dismiss-on-timeout="{{alert.timeout}}"
+                   close="closeAlert($index)">{{alert.msg}}</uib-alert>
+    </div>
+
+    <div class="modal transfer-cart">
+        <script type="text/ng-template" id="transferCartModal.html">
+            <div class="modal-header">
+                <h3 class="modal-title">Transfer cart</h3>
+            </div>
+            <div class="modal-body">
+                <p>You already seem to have a cart saved.  Would you like to overwrite it with your new one?</p>                
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" ng-click="transferCart()">Yes</button>
+                <button class="btn btn-primary" type="button" ng-click="cancel()">No</button>
+            </div>
+        </script>
+    </div>
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @Scripts.Render("~/bundles/app")
-    @Scripts.Render("~/bundles/misc")        
+    @Scripts.Render("~/bundles/misc")
+
+    <script type="text/javascript">var account, userId;</script>
+<!-- Inject account email if normal, logged-in account-->
+    @{
+        var isTemporaryUser = (bool)(ViewData["IsTemporaryUser"] ?? false);
+    }
+
+    @if (Request.IsAuthenticated && !isTemporaryUser)
+    {
+        <script type="text/javascript">
+            account = '@User.Identity.GetUserName()';
+            userId = '@User.Identity.GetUserId()';
+        </script>
+    }
+
 </body>
 </html>

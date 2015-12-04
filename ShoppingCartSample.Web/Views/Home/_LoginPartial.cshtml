@@ -1,0 +1,17 @@
+﻿<ul ng-controller="AccountCtrl" ng-cloak class="nav navbar-nav navbar-right">
+    <li>
+        <span style="display: inline-block; color: white; padding: 15px 5px 15px 5px;">Currency: </span>
+        <select ng-model="selectedCurrency" ng-change="changeCurrency(defaultCurrency, selectedCurrency.code)" ng-options="currency.code for currency in currencies"></select>
+    </li>
+
+    <li ng-if="account">
+        <span style="display: inline-block; color: white; padding: 15px 5px 15px 10px;">Hello {{account}}!</span>
+    </li>
+    <li ng-if="account">
+        <a ng-click="logout()">Log off</a>
+    </li>
+
+    <li ng-if="!account"><a href="#/register">Register</a></li>
+    <li ng-if="!account"><a href="#/login">Login</a></li>
+
+</ul>

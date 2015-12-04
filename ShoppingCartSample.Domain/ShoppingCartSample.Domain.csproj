@@ -43,6 +43,7 @@
     <Compile Include="Enums\ChargeResolutionType.cs" />
     <Compile Include="Enums\DeliveryChargeType.cs" />
     <Compile Include="Enums\UserActionType.cs" />
+    <Compile Include="Exceptions\CartIsEmptyException.cs" />
     <Compile Include="Exceptions\CartNotFoundException.cs" />
     <Compile Include="Exceptions\CurrencyConversionException.cs" />
     <Compile Include="Exceptions\CurrencyNotFoundException.cs" />

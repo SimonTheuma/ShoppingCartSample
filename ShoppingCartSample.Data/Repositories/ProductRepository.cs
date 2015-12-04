@@ -22,7 +22,8 @@ namespace ShoppingCartSample.Data.Repositories
                 throw new InvalidArgumentException("Invalid quantity amount specified.");
             }
 
-            return _context.Products.Any(product => product.ID == productId && product.Quantity >= quantity);
+            var isAvailable = _context.Products.Any(product => product.ID == productId && product.Quantity >= quantity);
+            return isAvailable;
         }
 
         public IEnumerable<Product> GetAll()
@@ -32,7 +33,7 @@ namespace ShoppingCartSample.Data.Repositories
 
         public Product GetById(int productId)
         {            
-            var product = _context.Products.First(p => p.ID == productId);
+            var product = _context.Products.FirstOrDefault(p => p.ID == productId);
 
             if (product == null)
             {

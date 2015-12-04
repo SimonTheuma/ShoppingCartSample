@@ -54,16 +54,22 @@ namespace ShoppingCartSample.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(model, JsonRequestBehavior.DenyGet);
             }
 
-            var userId = User.Identity.GetUserId();            
+            var userId = User.Identity.GetUserId();
 
             try
             {
                 var order = _cartService.AddOrder(userId, model.ProductID, model.Quantity);
                 Response.StatusCode = (int) HttpStatusCode.Created;
-                return Json(new {id = order.ID, subTotal = order.SubTotal}, JsonRequestBehavior.AllowGet);
+                return Json(new {id = order.ID, subTotal = order.SubTotal, productName = order.ProductName},
+                    JsonRequestBehavior.AllowGet);
+            }
+            catch (ProductOutOfStockException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "stock");
             }
             catch (Exception)
             {
@@ -127,6 +133,23 @@ namespace ShoppingCartSample.Controllers
             }
         }
 
+        [HttpDelete]
+        [Route("clear")]
+        public ActionResult ClearCart()
+        {
+            var userId = User.Identity.GetUserId();
+
+            try
+            {
+                _cartService.Clear(userId);
+                return new HttpStatusCodeResult(HttpStatusCode.OK);
+            }
+            catch (CartNotFoundException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "cart");
+            }
+        }
+
         [HttpPost]
         [Route("checkout")]
         public ActionResult ProcessCheckout(ProcessCheckoutViewModel model)
@@ -160,15 +183,25 @@ namespace ShoppingCartSample.Controllers
             try
             {
                 var cart = _cartService.GetByUserId(userId);
+
+                if (cart.Orders.Count == 0)
+                {
+                    throw new CartIsEmptyException();
+                }
+
                 return Json(cart, JsonRequestBehavior.AllowGet);
             }
             catch (CartNotFoundException)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.NotFound);
             }
+            catch (CartIsEmptyException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "empty");   
+            }
             catch (InvalidStockUpdateException)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "stock");
             }
         }
 
@@ -178,12 +211,12 @@ namespace ShoppingCartSample.Controllers
         //Otherwise this happens automatically when the user logs in. (Check AccountController)
         public ActionResult ConfirmCartTransfer(TransferCartViewModel model)
         {
-            string temporaryUserId = model.TemporaryUserId;
+            string sourceUserId = model.SourceUserId;
             string currentUserId = User.Identity.GetUserId();
 
             try
             {
-                _cartService.Transfer(temporaryUserId, currentUserId, overwriteCart: true);
+                _cartService.Transfer(sourceUserId, currentUserId, overwriteCart: true);
                 return new HttpStatusCodeResult(HttpStatusCode.OK);
             }
             catch (UserNotFoundException)
