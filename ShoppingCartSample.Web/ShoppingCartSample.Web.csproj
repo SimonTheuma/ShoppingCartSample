@@ -260,7 +260,6 @@
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\AddOrderViewModel.cs" />
-    <Compile Include="ViewModels\ProcessCheckoutViewModel.cs" />
     <Compile Include="ViewModels\RemoveOrderViewModel.cs" />
     <Compile Include="ViewModels\TransferCartViewModel.cs" />
     <Compile Include="ViewModels\UpdateOrderViewModel.cs" />
@@ -331,10 +330,8 @@
     <Content Include="Scripts\_references.js" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Home\_Layout.cshtml" />
     <Content Include="Views\Home\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Web.config">
       <SubType>Designer</SubType>
     </Content>

@@ -47,7 +47,7 @@ namespace ShoppingCartSample.Controllers
             }
             else
             {
-                var userId = User.Identity.GetUserId();
+                string userId = _userService.GetUserId();
                 ViewData["IsTemporaryUser"] = _userService.IsTemporary(userId);
             }
 

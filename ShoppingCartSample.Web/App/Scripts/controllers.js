@@ -16,7 +16,7 @@ app.controller('MainCtrl', ['$scope', 'Currencies', 'Cart', 'Notifications', fun
             $scope.currencies = data;
 
             var defaultCurrency = _.find(data, function (currency) { return currency.isDefault; });
-            $scope.defaultCurrency = defaultCurrency.code;            
+            $scope.defaultCurrency = defaultCurrency.code;
             $scope.selectedCurrency = defaultCurrency;
             $scope.currencySymbol = defaultCurrency.symbol;
         },
@@ -37,7 +37,7 @@ app.controller('MainCtrl', ['$scope', 'Currencies', 'Cart', 'Notifications', fun
             }
         });
 
-    $scope.changeCurrency = function(oldCurrencyCode, newCurrencyCode) {
+    $scope.changeCurrency = function (oldCurrencyCode, newCurrencyCode) {
         var currency = _.find($scope.currencies, function (currency) { return currency.code === newCurrencyCode; });
 
         $scope.selectedCurrency = currency;
@@ -298,11 +298,11 @@ app.controller('AccountCtrl', ['$scope', '$uibModal', '$location', 'Account', 'A
                         //user needs to accept transferring the new cart to the old user
                     case 409:
                         {
-                            var modal = $uibModal.open({
+                            $scope.$parent.modal = $uibModal.open({
                                 animation: true,
                                 templateUrl: 'transferCartModal.html',
-                                controller: 'TransferModalCtrl',
-                                size: 'sm'                                
+                                controllerAs: 'TransferModalCtrl',
+                                size: 'sm'
                             });
                         }
                 }
@@ -325,10 +325,22 @@ app.controller('TransferModalCtrl', [
     '$scope', '$uibModalInstance', 'Notifications', 'Cart', 'AccountSettings', function ($scope, $uibModalInstance, Notifications, Cart, AccountSettings) {
         var sourceUserId = AccountSettings.getUserId();
 
+        $scope.cancel = function () {
+            $uibModalInstance.dismiss('cancel');
+            Cart.get({},
+                function (data) {
+                    $scope.$parent.cart = data;
+                },
+                function (error) {
+                    Notifications.addAlert('danger', 'An error has occurred while attempting to retrieve.  Please reload the page.', 5000);
+                });
+        };
+
         $scope.transferCart = function () {
+            $uibModalInstance.close();
             Cart.transfer({ sourceUserId: sourceUserId },
                 function (data) {
-                    AccountSettings.setIsTemporary(false);
+                    AccountSettings.setIsTemporary(false);                    
                 },
                 function (error) {
                     //what else to do in case there's an error transferring the cart?

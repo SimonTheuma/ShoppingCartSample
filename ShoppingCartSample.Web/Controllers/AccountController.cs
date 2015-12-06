@@ -45,7 +45,7 @@ namespace ShoppingCartSample.Controllers
             }
 
             //check if user is already "logged in" with a temporary user.
-            var userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
             var wasAnonymous = _userService.IsTemporary(userId);
 
             if (!wasAnonymous)
@@ -97,7 +97,7 @@ namespace ShoppingCartSample.Controllers
         {
             if (ModelState.IsValid)
             {
-                var oldUserId = User.Identity.GetUserId();
+                string oldUserId = _userService.GetUserId();
                 var wasAnonymous = _userService.IsTemporary(oldUserId);
 
                 if (!wasAnonymous)

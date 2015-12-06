@@ -31,14 +31,17 @@ namespace ShoppingCartSample.Controllers
         // GET: Cart
         public ActionResult GetCart()
         {
-            string userId = User.Identity.GetUserId();
-            //var user = _userService.FindById(userId);
+            string userId = _userService.GetUserId();            
 
             Cart cart;
 
             try
             {
                 cart = _cartService.GetByUserId(userId);
+            }
+            catch (UserNotFoundException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "user");
             }
             catch (CartNotFoundException)
             {
@@ -55,10 +58,10 @@ namespace ShoppingCartSample.Controllers
             if (!ModelState.IsValid)
             {
                 Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                return Json(model, JsonRequestBehavior.DenyGet);
+                return Json(new { data = model, errors = ModelState["error"].Errors }, JsonRequestBehavior.DenyGet);
             }
 
-            var userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
 
             try
             {
@@ -66,6 +69,10 @@ namespace ShoppingCartSample.Controllers
                 Response.StatusCode = (int) HttpStatusCode.Created;
                 return Json(new {id = order.ID, subTotal = order.SubTotal, productName = order.ProductName},
                     JsonRequestBehavior.AllowGet);
+            }
+            catch (ProductNotFoundException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.NotFound, "product");
             }
             catch (ProductOutOfStockException)
             {
@@ -83,15 +90,20 @@ namespace ShoppingCartSample.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                return Json(new { data = model, errors = ModelState["error"].Errors }, JsonRequestBehavior.DenyGet);
             }
 
-            var userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
 
             try
             {
                 _cartService.RemoveOrder(userId, model.OrderId);
                 return new HttpStatusCodeResult(HttpStatusCode.NoContent);
+            }
+            catch (OrderDoesNotBelongToUserException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "order");
             }
             catch (CartNotFoundException)
             {
@@ -112,7 +124,7 @@ namespace ShoppingCartSample.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
 
             try
             {
@@ -137,7 +149,7 @@ namespace ShoppingCartSample.Controllers
         [Route("clear")]
         public ActionResult ClearCart()
         {
-            var userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
 
             try
             {
@@ -152,13 +164,19 @@ namespace ShoppingCartSample.Controllers
 
         [HttpPost]
         [Route("checkout")]
-        public ActionResult ProcessCheckout(ProcessCheckoutViewModel model)
+        public ActionResult ProcessCheckout()
         {
             try
             {
-                var userId = User.Identity.GetUserId();
+                string userId = _userService.GetUserId();
                 _cartService.ProcessCheckout(userId);
-                return new HttpStatusCodeResult(HttpStatusCode.OK);
+
+                var cart = _cartService.Create(userId);
+                return Json(cart, JsonRequestBehavior.DenyGet);
+            }
+            catch (ProductOutOfStockException)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest, "stock");
             }
             catch (CartNotFoundException)
             {
@@ -170,7 +188,7 @@ namespace ShoppingCartSample.Controllers
         [Route("confirm")]
         public ActionResult ConfirmCheckout()
         {
-            string userId = User.Identity.GetUserId();
+            string userId = _userService.GetUserId();
             var user = _userService.FindById(userId);
 
             if (user.IsTemporary)
@@ -212,7 +230,7 @@ namespace ShoppingCartSample.Controllers
         public ActionResult ConfirmCartTransfer(TransferCartViewModel model)
         {
             string sourceUserId = model.SourceUserId;
-            string currentUserId = User.Identity.GetUserId();
+            string currentUserId = _userService.GetUserId();
 
             try
             {

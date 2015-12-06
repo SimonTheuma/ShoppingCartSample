@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using ShoppingCartSample.Attributes;
+using ShoppingCartSample.Authentication.Services;
 using ShoppingCartSample.Domain.Exceptions;
 using ShoppingCartSample.Domain.Models.UserActions;
 using ShoppingCartSample.Logic.Services;
@@ -17,11 +18,13 @@ namespace ShoppingCartSample.Controllers
     {
         private readonly IProductService _productService;
         private readonly IAuditService _auditService;
+        private readonly IUserService _userService;
 
-        public ProductController(IProductService productService, IAuditService auditService)
+        public ProductController(IProductService productService, IAuditService auditService, IUserService userService)
         {
             _productService = productService;
             _auditService = auditService;
+            _userService = userService;
         }
         
         [HttpGet]       
@@ -47,7 +50,7 @@ namespace ShoppingCartSample.Controllers
         {
             try
             {
-                string userId = User.Identity.GetUserId();
+                string userId = _userService.GetUserId();
                 var product = _productService.GetById(productId);
 
                 _auditService.LogUserAction(new UserSawProduct(userId, productId));

@@ -99,7 +99,6 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CartControllerTest.cs" />
-    <Compile Include="AccountControllerTest.cs" />
     <Compile Include="ProductControllerTest.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -109,6 +108,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ShoppingCartSample.Authentication\ShoppingCartSample.Authentication.csproj">
+      <Project>{05C90E28-F6E4-4E92-B260-C7B67B139A72}</Project>
+      <Name>ShoppingCartSample.Authentication</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ShoppingCartSample.Data\ShoppingCartSample.Data.csproj">
       <Project>{A8A2B6CD-6195-49DC-9FF4-E58F00C48B21}</Project>
       <Name>ShoppingCartSample.Data</Name>
