@@ -67,7 +67,7 @@ namespace ShoppingCartSample.Controllers
             {
                 var order = _cartService.AddOrder(userId, model.ProductID, model.Quantity);
                 Response.StatusCode = (int) HttpStatusCode.Created;
-                return Json(new {id = order.ID, subTotal = order.SubTotal, productName = order.ProductName},
+                return Json(order,
                     JsonRequestBehavior.AllowGet);
             }
             catch (ProductNotFoundException)

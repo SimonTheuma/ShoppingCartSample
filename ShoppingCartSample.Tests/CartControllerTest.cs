@@ -22,7 +22,7 @@ namespace ShoppingCartSample.Tests
         private Mock<ICartService> _cartServiceMock;
         private Mock<IUserService> _userServiceMock;
         CartController _cartController;
-        List<Cart> carts;        
+        List<Cart> carts;
 
         private const string VALID_ID = "c8b8de25-06f7-4904-ba1e-4b646167c966";
         private const string INVALID_ID = "blabla";
@@ -42,17 +42,17 @@ namespace ShoppingCartSample.Tests
                 {
                     HttpContext = mockHttpContext.Object
                 }
-            };            
+            };
 
             mockHttpContext.SetupGet(x => x.Response).Returns(response.Object);
         }
 
-        /*
+
         [TestMethod]
         public void TestAddValidProductToCart()
         {
             //Arrange
-            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);      
+            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
 
             _cartServiceMock.Setup(x => x.AddOrder(VALID_ID, 1, 1))
                 .Returns(new Order()
@@ -67,29 +67,31 @@ namespace ShoppingCartSample.Tests
                 });
 
             //Act
-            var result = (JsonResult) _cartController.AddOrder(
+            var result = (JsonResult)_cartController.AddOrder(
                 new AddOrderViewModel()
                 {
                     ProductID = 1,
                     Quantity = 1
                 });
 
-            dynamic order = result.Data as dynamic;
+            Order order = result.Data as Order;
 
             //Assert
-            Assert.AreEqual("test", order.productName.ToString());            
+            Assert.IsNotNull(order);
+            Assert.AreEqual("test", order.ProductName);
+            Assert.AreEqual(1, order.Quantity);
+            Assert.AreEqual(VALID_ID, order.UserID);
         }
-        */
 
-        [TestMethod]        
+        [TestMethod]
         public void TestAddInvalidProductToCart()
         {
             //Arrange            
             _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
-            _cartServiceMock.Setup(x => x.AddOrder(VALID_ID, 0, 1)).Throws(new ProductNotFoundException());            
+            _cartServiceMock.Setup(x => x.AddOrder(VALID_ID, 0, 1)).Throws(new ProductNotFoundException());
 
             //Act
-            var result = ((HttpStatusCodeResult) _cartController.AddOrder(
+            var result = ((HttpStatusCodeResult)_cartController.AddOrder(
                 new AddOrderViewModel()
                 {
                     ProductID = 0,
@@ -101,11 +103,11 @@ namespace ShoppingCartSample.Tests
             Assert.AreEqual("product", result.StatusDescription);
         }
 
-        [TestMethod]        
+        [TestMethod]
         public void TestAddOutOfStockProductToCart()
         {
             //Arrange            
-            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);            
+            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
             _cartServiceMock.Setup(x => x.AddOrder(VALID_ID, 1, 1)).Throws(new ProductOutOfStockException());
 
             //Act
@@ -121,29 +123,7 @@ namespace ShoppingCartSample.Tests
             Assert.AreEqual("stock", result.StatusDescription);
         }
 
-        [TestMethod] 
-        //TODO: Finish       
-        public void TestAddNegativeQuantityOfProductToCart()
-        {
-            //Arrange
-            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
-
-
-            //Act
-            var result = ((JsonResult)_cartController.AddOrder(
-                new AddOrderViewModel()
-                {
-                    ProductID = 1,
-                    Quantity = -1
-                }));               
-
-            //Assert
-            //Assert.AreEqual(result.);
-            //Assert.AreEqual(errorMessage, "Please enter a value bigger than 1.");
-            _cartServiceMock.Verify(x => x.AddOrder(VALID_ID, 1, -1), Times.Never);
-        }
-
-        [TestMethod]        
+        [TestMethod]
         public void TestGetCartForUnknownUser()
         {
             //Arrange
@@ -151,9 +131,10 @@ namespace ShoppingCartSample.Tests
             _cartServiceMock.Setup(x => x.GetByUserId(INVALID_ID)).Throws(new UserNotFoundException());
 
             //Act
-            var result = (HttpStatusCodeResult) _cartController.GetCart();
+            var result = (HttpStatusCodeResult)_cartController.GetCart();
 
-            Assert.AreEqual("404", (int)result.StatusCode);
+            //Assert
+            Assert.AreEqual(404, result.StatusCode);
             Assert.AreEqual("user", result.StatusDescription);
         }
 
@@ -162,7 +143,8 @@ namespace ShoppingCartSample.Tests
         {
             //Arrange
             _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
-            _cartServiceMock.Setup(x => x.GetByUserId(VALID_ID)).Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });           
+            _cartServiceMock.Setup(x => x.GetByUserId(VALID_ID))
+                .Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });
 
             //Act
             var result = (JsonResult)_cartController.GetCart();
@@ -176,16 +158,17 @@ namespace ShoppingCartSample.Tests
             Assert.IsFalse(cart.IsCleared);
         }
 
-        [TestMethod]        
+        [TestMethod]
         public void TestGetNewCartForUser()
         {
             //Arrange
             _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
             _cartServiceMock.Setup(x => x.GetByUserId(VALID_ID)).Throws(new CartNotFoundException());
-            _cartServiceMock.Setup(x => x.Create(VALID_ID)).Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });
+            _cartServiceMock.Setup(x => x.Create(VALID_ID))
+                .Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });
 
             //Act
-            var result = (JsonResult) _cartController.GetCart();
+            var result = (JsonResult)_cartController.GetCart();
             Cart cart = result.Data as Cart;
 
             //Assert
@@ -193,16 +176,17 @@ namespace ShoppingCartSample.Tests
             Assert.AreEqual(VALID_ID, cart.UserID);
             Assert.AreEqual(0, cart.Orders.Count);
             Assert.IsFalse(cart.IsCheckedOut);
-            Assert.IsFalse(cart.IsCleared);            
+            Assert.IsFalse(cart.IsCleared);
         }
 
         [TestMethod]
         public void TestValidCheckoutCreatesNewCart()
         {
             _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
-            _cartServiceMock.Setup(x => x.Create(VALID_ID)).Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });
+            _cartServiceMock.Setup(x => x.Create(VALID_ID))
+                .Returns(new Cart() { UserID = VALID_ID, Orders = new List<Order>(), LastUpdatedUtc = DateTime.UtcNow });
 
-            var result = (JsonResult) _cartController.ProcessCheckout();
+            var result = (JsonResult)_cartController.ProcessCheckout();
             Cart cart = result.Data as Cart;
 
             //Assert
@@ -216,7 +200,7 @@ namespace ShoppingCartSample.Tests
             _cartServiceMock.Verify(x => x.Create(VALID_ID), Times.Once);
         }
 
-        [TestMethod]        
+        [TestMethod]
         public void TestCheckoutProductMoreQuantityThanInStock()
         {
             //Arrange
@@ -224,15 +208,15 @@ namespace ShoppingCartSample.Tests
             _cartServiceMock.Setup(x => x.ProcessCheckout(VALID_ID)).Throws(new ProductOutOfStockException());
 
             //Act
-            var result = (HttpStatusCodeResult) _cartController.ProcessCheckout();
+            var result = (HttpStatusCodeResult)_cartController.ProcessCheckout();
 
             //Assert
             Assert.AreEqual(400, result.StatusCode);
             Assert.AreEqual("stock", result.StatusDescription);
 
-        }        
+        }
 
-        [TestMethod]        
+        [TestMethod]
         public void TestRemoveNullOrder()
         {
             //Arrange
@@ -240,7 +224,7 @@ namespace ShoppingCartSample.Tests
             _cartServiceMock.Setup(x => x.RemoveOrder(VALID_ID, 0)).Throws(new OrderNotFoundException());
 
             //Act
-            var result = (HttpStatusCodeResult) _cartController.RemoveOrder(
+            var result = (HttpStatusCodeResult)_cartController.RemoveOrder(
                 new RemoveOrderViewModel()
                 {
                     OrderId = 0
@@ -249,6 +233,49 @@ namespace ShoppingCartSample.Tests
             //Assert
             Assert.AreEqual(404, result.StatusCode);
             Assert.AreEqual("order", result.StatusDescription);
-        }       
+        }
+
+        [TestMethod]
+        public void TestClearCart()
+        {
+            //Arrange
+            var orders = new List<Order>()
+            {
+                new Order()
+                {
+                    ID = 1,
+                    CartID = 1,
+                    ProductID = 1,
+                    ProductName = "test",
+                    Quantity = 1,
+                    UnitPrice = 1,
+                    UserID = VALID_ID
+                }
+            };
+
+            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
+            _cartServiceMock.Setup(x => x.GetByUserId(VALID_ID)).Returns(new Cart() { UserID = VALID_ID, Orders = orders, LastUpdatedUtc = DateTime.UtcNow });
+
+            //Act
+            var result = (HttpStatusCodeResult) _cartController.ClearCart();
+
+            //Assert
+            Assert.AreEqual(200, result.StatusCode);
+        }
+
+        [TestMethod]
+        public void TestClearEmptyCart()
+        {
+            //Arrange
+            _userServiceMock.Setup(x => x.GetUserId()).Returns(VALID_ID);
+            _cartServiceMock.Setup(x => x.Clear(VALID_ID)).Throws(new CartNotFoundException());
+
+            //Act
+            var result = (HttpStatusCodeResult)_cartController.ClearCart();
+
+            //Assert
+            Assert.AreEqual(404, result.StatusCode);
+            Assert.AreEqual("cart", result.StatusDescription);
+        }
     }
 }
